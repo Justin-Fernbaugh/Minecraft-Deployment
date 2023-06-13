@@ -12,23 +12,16 @@ variable "instance_flavor" {
   default     = "t2.small"
 }
 
-variable "ssh_key" {
+variable "ssh_key_name" {
   description = "Name of the SSH key to assign to the instance"
   type        = string
   #Change this value to change the SSH key which will be added to the instance. (Must be already imported on account)
-  default     = "change"
+  default     = "minecraft_key"
 }
 
-variable "security_group" {
-  description = "ID of the security group for the instance"
+variable "ssh_public_key" {
+  description = "Name of the SSH key to assign to the instance"
   type        = string
-  #Change this value to change the security group
-  default     = "change"
-}
-
-variable "subnet" {
-  description = "ID of the subnet for the instance"
-  type        = string
-  #Change this value to change the subnet for the instance
+  #Change this value to change the SSH key which will be added to the instance. (Must be already imported on account)
   default     = "change"
 }

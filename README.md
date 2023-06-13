@@ -10,10 +10,8 @@ The following things need to be pre-installed on the system
 
 ###
 The following things need to be pre-configured on the AWS side of things. 
-1. The SSH key needs to already be imported into your account. 
-2. The security group and rules need to be already created
-3. The subnet needs to already be created.
-4. Your AWS credentials need to be placed in your .aws/credentials file. The location of the .aws/credentials file depends on the system. Although on MacOS it's located at ```~/.aws/credentials```
+1. You need to have a SSH public and private key already created. The public key will be added to the variables.tf file as explained below.
+2. Your AWS credentials need to be placed in your .aws/credentials file. The location of the .aws/credentials file depends on the system. Although on MacOS it's located at ```~/.aws/credentials```
 
 ###
 Once the things above are taken care of you can simply grab the ID or in the case of the SSH key the name and put them in the variables.tf file as I'll explain below.
@@ -27,7 +25,7 @@ Once the things above are taken care of you can simply grab the ID or in the cas
 ## Terraform
 1. Navigate to Minecraft-Deployment/Terraform/
 2. Run ```terraform init``` This should intialize the project for Terraform through your account.
-3. Edit the variables.tf file and change the variables labled "ssh_key", "security_group" and "subnet". The other values can be edited although it's not strictly necessary.
+3. Edit the variables.tf file and change the ssh_public_key variable so that default = is assigned to your SSH public key.
 4. Run ```terraform apply``` You'll be prompted to confirm the action type "yes" if you agree.
 5. Once the Terraform deployment finishes you should see "Apply complete" followed by 
 ```
