@@ -15,9 +15,6 @@ The following things need to be pre-configured on the AWS side of things.
 1. You need to have a SSH public and private key already created. The public key will be added to the variables.tf file as explained below.
 2. Your AWS credentials need to be placed in your .aws/credentials file. The location of the .aws/credentials file depends on the system. Although on MacOS it's located at ```~/.aws/credentials```
 
-###
-Once the things above are taken care of you can simply grab the ID or in the case of the SSH key the name and put them in the variables.tf file as I'll explain below.
-
 ## Setup
 1. Clone the repository locally
 2. Put your aws credentials in .aws/credentials
