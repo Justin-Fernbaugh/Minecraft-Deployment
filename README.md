@@ -2,13 +2,19 @@
 
 A fully automated deployment of a minecraft server utilizing infrastructure as code. The provisioning and deployment of the instance is done using Terraform. While the automation of the minecraft server itself is done using Ansible. Using these two tools you can have a fully automated setup of a Minecraft server.
 
-### Side note: 
+### Broad Overview
 The security groups are configured to allow inbound/outbound traffic on ports 25565 & 22 from CIDR 0.0.0.0/0 AKA anywhere so be careful.
 ###
 The following things need to be pre-installed on the system
 1. AWS CLI
 2. Terraform
 3. Ansible
+###
+The deployment is broken up into essentially two parts Terraform and Ansible. 
+Terraform is used to provision the AWS instance which includes the security group rules and public key assigned to the instance.
+On the other hand, Ansible is used once the instance has been created in order to download the server files and setup the systemd service.
+Important to note, Anislbe creates a systemd service called "mcserver.service" which handles the Minecraft server java process.
+The systemd service has benefits such as the fact that it auto starts the Minecraft server on startup.
 
 ###
 The following things need to be pre-configured on the AWS side of things. 
