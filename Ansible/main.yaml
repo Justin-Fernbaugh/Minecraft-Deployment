@@ -1,0 +1,90 @@
+---
+- name: Create minecraft server on node
+  hosts: all
+  remote_user: ubuntu
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/312-key
+
+  tasks:
+    - name: Update packages
+      apt:
+        update_cache: yes
+        upgrade: yes
+      become: yes
+
+    - name: Add OpenJDK repository
+      apt_repository:
+        repo: ppa:openjdk-r/ppa
+      become: yes
+
+    - name: Install OpenJDK
+      apt:
+        name: openjdk-17-jre-headless
+        state: present
+      become: yes
+
+    - name: Download server jar
+      get_url:
+        # v1.19.4
+        # url: https://piston-data.mojang.com/v1/objects/8f3112a1049751cc472ec13e397eade5336ca7ae/server.jar
+        # v1.20.1
+        url: https://piston-data.mojang.com/v1/objects/84194a2f286ef7c14ed7ce0090dba59902951553/server.jar
+        dest: /home/ubuntu/server.jar
+
+    - name: Modify file permissions
+      file:
+        path: /home/ubuntu/server.jar
+        mode: '0777'
+      become: yes
+
+    - name: Create a named pipe
+      command: mkfifo /tmp/minecraft-input
+      args:
+        creates: /tmp/minecraft-input
+
+    - name: Run Minecraft server
+      shell: 
+        cmd: |
+          java -Xms1024M -Xmx1024M -jar /home/ubuntu/server.jar nogui < /tmp/minecraft-input &
+          echo "stop" > /tmp/minecraft-input
+      async: 100
+      poll: 0
+
+    - name: Sleep for 60 seconds
+      pause:
+        seconds: 60
+
+    - name: Accept the EULA
+      replace:
+        path: /home/ubuntu/eula.txt
+        regexp: 'eula=false'
+        replace: 'eula=true'
+      become: yes
+
+
+    - name: Create systemd service file
+      copy:
+        content: |
+          [Unit]
+          Description=Manage Java service
+
+          [Service]
+          WorkingDirectory=/home/ubuntu/
+          ExecStart=/bin/java -Xms1024M -Xmx1024M -jar /home/ubuntu/server.jar nogui
+          User=ubuntu
+          Type=simple
+          Restart=on-failure
+          RestartSec=2
+
+          [Install]
+          WantedBy=multi-user.target
+        dest: /etc/systemd/system/mcserver.service
+      become: yes
+
+    - name: Start and enable mcserver.service
+      systemd:
+        name: mcserver.service
+        state: started
+        enabled: yes
+        daemon_reload: yes
+      become: yes
