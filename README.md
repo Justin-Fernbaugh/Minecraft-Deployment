@@ -3,6 +3,8 @@
 A fully automated deployment of a minecraft server utilizing infrastructure as code. The provisioning and deployment of the instance is done using Terraform. While the automation of the minecraft server itself is done using Ansible. Using these two tools you can have a fully automated setup of a Minecraft server.
 
 ### Side note: 
+The security groups are configured to allow inbound/outbound traffic on ports 25565 & 22 from CIDR 0.0.0.0/0 AKA anywhere so be careful.
+###
 The following things need to be pre-installed on the system
 1. AWS CLI
 2. Terraform
