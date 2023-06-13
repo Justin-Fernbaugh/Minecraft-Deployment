@@ -13,7 +13,7 @@ The following things need to be pre-installed on the system
 The deployment is broken up into essentially two parts Terraform and Ansible. 
 Terraform is used to provision the AWS instance which includes the security group rules and public key assigned to the instance.
 On the other hand, Ansible is used once the instance has been created in order to download the server files and setup the systemd service.
-Important to note, Anislbe creates a systemd service called "mcserver.service" which handles the Minecraft server java process.
+Important to note, Ansible creates a systemd service called "mcserver.service" which handles the Minecraft server java process.
 The systemd service has benefits such as the fact that it auto starts the Minecraft server on startup.
 
 ###
