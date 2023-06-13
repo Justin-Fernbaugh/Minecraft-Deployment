@@ -44,3 +44,6 @@ instance_public_ip = "{IP}"
 
 ## Once finished
 It can take up to 5 minutes for the Minecraft server to be up and running. Although, the TTL depends on system specs/instance flavor chosen.
+
+### Resources Cited
+1. https://www.digitalocean.com/community/tutorials/how-to-create-a-minecraft-server-on-ubuntu-22-04
