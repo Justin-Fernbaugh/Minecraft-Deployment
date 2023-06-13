@@ -17,9 +17,8 @@ The following things need to be pre-configured on the AWS side of things.
 Once the things above are taken care of you can simply grab the ID or in the case of the SSH key the name and put them in the variables.tf file as I'll explain below.
 
 ## Setup
-1. Create the security group on AWS and allow inbound/outbound traffic on port 25565 & 22 from anywhere aka CIDR 0.0.0.0/0
-2. Clone the repository locally
-3. Put your aws credentials in .aws/credentials
+1. Clone the repository locally
+2. Put your aws credentials in .aws/credentials
 
 
 ## Terraform
